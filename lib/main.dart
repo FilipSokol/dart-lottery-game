@@ -50,7 +50,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
       print("trafiles za ");
       print(turnNumber);
       if(turnNumber <= 2){
-        print("WYGRAles ");
+        print("WYGRALES ");
       }
     }
     if(guessedNumber < randomNumber){
@@ -109,9 +109,6 @@ class _MyCustomFormState extends State<MyCustomForm> {
           ],
         ),
       ),
-
-
-
     );
   }
 }
