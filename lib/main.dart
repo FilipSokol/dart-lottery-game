@@ -33,34 +33,42 @@ class _MyCustomFormState extends State<MyCustomForm> {
   var guessedNumber;
   var turnNumber = 0;
 
+  TextEditingController controller = TextEditingController();
+
+  String display = "";
+
   numberLottery(){
-    turnNumber = 0;
-    int randomNumberInt = int.parse(numberRange.text);
-    randomNumber =  Random().nextInt(randomNumberInt);
-    print(randomNumber);
+    setState(() {
+      turnNumber = 0;
+      display = ("");
+      int randomNumberInt = int.parse(numberRange.text);
+      randomNumber =  Random().nextInt(randomNumberInt);
+      print(randomNumber);
+    });
   }
 
   guessNumber(){
+    setState(() {
+      int guessedNumberInt = int.parse(inputedNumber.text);
+      guessedNumber =  guessedNumberInt;
 
-    int guessedNumberInt = int.parse(inputedNumber.text);
-    guessedNumber =  guessedNumberInt;
+      if(guessedNumber == randomNumber){
 
-    if(guessedNumber == randomNumber){
-      turnNumber++;
-      print("trafiles za ");
-      print(turnNumber);
-      if(turnNumber <= 2){
-        print("WYGRALES ");
+        turnNumber++;
+        display = ("Trafiles za $turnNumber razem");
+        if(turnNumber <= 2){
+          display = ("WYGRAŁEŚ! Trafiles za $turnNumber razem");
+        }
       }
-    }
-    if(guessedNumber < randomNumber){
-      turnNumber++;
-      print("Wartość zbyt mała");
-    }
-    if(guessedNumber > randomNumber){
-      turnNumber++;
-      print("Wartość zbyt duża");
-    }
+      if(guessedNumber < randomNumber){
+        turnNumber++;
+        display = ("Wartość zbyt mała");
+      }
+      if(guessedNumber > randomNumber){
+        turnNumber++;
+        display = ("Wartość zbyt duża");
+      }
+    });
   }
 
   @override
@@ -101,11 +109,14 @@ class _MyCustomFormState extends State<MyCustomForm> {
               onPressed: () {
                 // Respond to button press
                 guessNumber();
+                //setState((){display = controller;});
               },
               child: Text('Sprwadź'),
             ),
 
-             Text('Uzyskana wartość za: ${turnNumber}')
+             Text(display)
+             //Text('Uzyskana wartość za: ${turnNumber}')
+
           ],
         ),
       ),
